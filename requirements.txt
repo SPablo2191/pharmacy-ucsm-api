@@ -14,4 +14,4 @@ packaging==23.1
 six==1.16.0
 SQLAlchemy==2.0.10
 typing_extensions==4.5.0
-Werkzeug==2.3.0
+Werkzeug==2.2.3
