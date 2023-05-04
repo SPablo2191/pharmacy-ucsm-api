@@ -1,5 +1,6 @@
 from flask import Flask
-from database.db import initialize_db,create_db
+from database.db import initialize_db
+from database.db_maker import create_db
 from flask_cors import CORS
 from config import config
 app = Flask(__name__)
