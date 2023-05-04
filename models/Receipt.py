@@ -7,3 +7,5 @@ class Receipt(db.Model):
     total = db.Column(db.Float, nullable=False)
     registerDate = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.Boolean, default=True, nullable=False)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    details = db.relationship('ReceiptDetail', backref='receipt', lazy=True)

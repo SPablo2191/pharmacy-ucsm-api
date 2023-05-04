@@ -11,4 +11,4 @@ class Customer(db.Model):
     DNI = db.Column(db.String(8), unique=True, nullable=False)
     status = db.Column(db.Boolean, default=True, nullable=False)
     registerDate = db.Column(db.DateTime, default=datetime.utcnow)
-    
+    receipts = db.relationship('Receipt', backref='customer', lazy=True)
