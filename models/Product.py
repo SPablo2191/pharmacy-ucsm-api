@@ -8,4 +8,5 @@ class Product(db.Model):
     price = db.Column(db.Float)
     status = db.Column(db.Boolean, default=True, nullable=False)
     registerDate = db.Column(db.DateTime, default=datetime.utcnow)
+    stocks = db.relationship('Stock', backref='product', lazy=True)
     

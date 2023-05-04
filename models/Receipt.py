@@ -9,3 +9,5 @@ class Receipt(db.Model):
     status = db.Column(db.Boolean, default=True, nullable=False)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     details = db.relationship('ReceiptDetail', backref='receipt', lazy=True)
+    branch_id = db.Column(db.Integer, db.ForeignKey('branch.id'), unique=True)
+    branch = db.relationship('Branch', backref=db.backref('receipt', uselist=False))

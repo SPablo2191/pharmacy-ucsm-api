@@ -9,3 +9,5 @@ class ReceiptDetail(db.Model):
     subTotal = db.Column(db.Float, nullable=False)
     registerDate = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.Boolean, default=True, nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product = db.relationship('Product', backref='receipt_details')

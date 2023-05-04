@@ -6,3 +6,6 @@ class Stock(db.Model):
     quantity = db.Column(db.Integer)
     status = db.Column(db.Boolean, default=True, nullable=False)
     registerDate = db.Column(db.DateTime, default=datetime.utcnow)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    depot_id = db.Column(db.Integer, db.ForeignKey('depot.id'))
+    depot = db.relationship("Depot", backref="stock")
