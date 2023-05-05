@@ -13,3 +13,7 @@ def create_db(app):
         with app.app_context():
             db.create_all()
         os.environ['TABLES_CREATED'] = 'TRUE'
+
+def drop_db(app):
+    with app.app_context():
+        db.create_all()
