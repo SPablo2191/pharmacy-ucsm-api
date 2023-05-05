@@ -65,3 +65,8 @@ class ReceiptAPI(Resource):
             aux.append(aux_detail)
         receipt_selected["details"] = aux
         return receipt_selected
+    def delete(self,id):
+        existing_receipt = Receipt.query.get_or_404(id)
+        existing_receipt.status = False
+        db.session.commit()
+        return Response(receipt_schema.dumps(existing_receipt), mimetype="application/json", status=200)
