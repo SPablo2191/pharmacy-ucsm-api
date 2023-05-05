@@ -11,7 +11,7 @@ def initialize_routes(api):
  api.add_resource(CustomerAPI,url+'/customer/<int:id>')
  api.add_resource(ProductsAPI,url+'/products')
  api.add_resource(ProductAPI,url+'/product/<int:id>')
- api.add_resource(StocksAPI,url+'/product/<int:id>/stocks')
+ api.add_resource(StocksAPI,url+'/stocks')
  api.add_resource(BranchsAPI,url+'/branchs')
  api.add_resource(BranchAPI,url+'/branch/<int:id>')
  api.add_resource(DepotsAPI,url+'/branch/<int:id>/depots')
