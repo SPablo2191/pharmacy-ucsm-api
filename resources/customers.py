@@ -17,6 +17,9 @@ class CustomersAPI(Resource):
 
 
 class CustomerAPI(Resource):
+    def get(self,id):
+        existing_customer = Customer.query.get_or_404(id)
+        return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
     def put(self, id):
         existing_customer = Customer.query.get_or_404(id)
         body = request.get_json()
@@ -30,5 +33,8 @@ class CustomerAPI(Resource):
         existing_customer.DNI = data.DNI
         db.session.commit()
         return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
-    
-
+    def delete(self,id):
+        existing_customer = Customer.query.get_or_404(id)
+        existing_customer.status = False
+        db.session.commit()
+        return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
