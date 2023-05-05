@@ -1,11 +1,11 @@
-from flask import Response, request
+from flask import Response, request,jsonify
 from flask_restful import Resource
 from functions.receipt_code import generate_invoice_code
 from database.models.receipt import Receipt, receipt_schema, receipts_schema
 from database.models.receiptDetail import ReceiptDetail,receiptDetail_schema
 from database.db import db
-
-
+from sqlalchemy import and_,or_
+import json
 class ReceiptsAPI(Resource):
     def get(self):
         receipts = Receipt.query.all()
@@ -41,4 +41,12 @@ class ReceiptsAPI(Resource):
         )
 
 class ReceiptAPI(Resource):
-    pass
+    def get(self,id):
+        existing_receipt = Receipt.query.get_or_404(id)
+        details = ReceiptDetail.query.filter(ReceiptDetail.receipt_id == existing_receipt.id).all()
+        existing_receipt.details = details
+        receipt_selected = receipt_schema.dumps(existing_receipt)
+        return Response(
+            receipt_selected, mimetype="application/json", status=200
+        )
+    

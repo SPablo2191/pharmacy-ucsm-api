@@ -2,7 +2,7 @@ from datetime import datetime
 from database.db import db
 from database.db import ma
 from .receiptDetail import ReceiptDetailSchema
-
+from marshmallow import fields as fd
 
 class Receipt(db.Model):
     __tablename__ = "Receipt"
@@ -17,10 +17,11 @@ class Receipt(db.Model):
     branch = db.relationship("Branch", backref=db.backref("receipt", uselist=False))
 
 
-class ReceiptSchema(ma.Schema):
+class ReceiptSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Receipt
         load_instance = True
+        details = fd.Nested(ReceiptDetailSchema,many=True)
         fields = (
             "id",
             "number",
@@ -28,9 +29,8 @@ class ReceiptSchema(ma.Schema):
             "customer_id",
             "branch_id",
             "status",
-            "registerDate"
+            "registerDate",
         )
-        details = ma.Nested(ReceiptDetailSchema,many=True)
 
 
 receipt_schema = ReceiptSchema()

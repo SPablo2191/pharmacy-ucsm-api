@@ -1,4 +1,4 @@
-from .receipts import ReceiptsAPI
+from .receipts import ReceiptsAPI,ReceiptAPI
 from .customers import CustomersAPI,CustomerAPI
 from .products import ProductsAPI,ProductAPI
 from .branchs import BranchsAPI,BranchAPI
@@ -7,6 +7,7 @@ from .stocks import StocksAPI,StockAPI
 url = '/api'
 def initialize_routes(api):
  api.add_resource(ReceiptsAPI, url+'/receipts')
+ api.add_resource(ReceiptAPI, url+'/receipt/<int:id>')
  api.add_resource(CustomersAPI,url+'/customers')
  api.add_resource(CustomerAPI,url+'/customer/<int:id>')
  api.add_resource(ProductsAPI,url+'/products')

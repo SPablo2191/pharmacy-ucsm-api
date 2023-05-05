@@ -16,7 +16,7 @@ class ReceiptDetail(db.Model):
     product = db.relationship("Product", backref="receipt_details")
 
 
-class ReceiptDetailSchema(ma.Schema):
+class ReceiptDetailSchema(ma.SQLAlchemySchema):
     class Meta:
         model = ReceiptDetail
         load_instance = True
