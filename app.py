@@ -15,10 +15,22 @@ init_app(app=app)
 create_db(app=app)
 initialize_routes(api=api)
 
+
 @app.route("/")
 @app.route("/api")
 def index():
-    return {"message":"Bienvenido a la API de la Farmacia San Pablo 😽"}
+    return {
+        "Author": "Pablo Sandoval",
+        "message": "Welcome to the API REST from Farmacia San Pablo 😽",
+        "routes": [
+            "/customers",
+            "/customer/<int:id>",
+            "/products",
+            "/product/<int:id>",
+            "/branchs",
+            "/branch/<int:id>",
+        ],
+    }
 
 
 if __name__ == "__main__":
