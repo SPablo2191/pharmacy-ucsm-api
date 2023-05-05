@@ -39,3 +39,6 @@ class ReceiptsAPI(Resource):
         return Response(
             'Receipt Register successfully', mimetype="application/json", status=200
         )
+
+class ReceiptAPI(Resource):
+    pass
