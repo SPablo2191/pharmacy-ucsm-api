@@ -12,6 +12,7 @@ CORS(app=app)
 api = Api(app)
 initialize_db(app=app)
 init_app(app=app)
+# drop_db(app=app)
 create_db(app=app)
 initialize_routes(api=api)
 
