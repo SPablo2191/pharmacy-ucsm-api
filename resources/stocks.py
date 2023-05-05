@@ -10,25 +10,25 @@ class StocksAPI(Resource):
 
 
 
-class StockAPI(Resource):
-    def get(self,id):
-        existing_customer = Customer.query.get_or_404(id)
-        return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
-    def put(self, id):
-        existing_customer = Customer.query.get_or_404(id)
-        body = request.get_json()
-        data = customer_schema.load(body,session = db.session)     
-        existing_customer.name = data.name
-        existing_customer.lastName = data.lastName
-        existing_customer.phoneNumber = data.phoneNumber
-        existing_customer.address = data.address
-        existing_customer.email = data.email
-        existing_customer.status = data.status
-        existing_customer.DNI = data.DNI
-        db.session.commit()
-        return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
-    def delete(self,id):
-        existing_customer = Customer.query.get_or_404(id)
-        existing_customer.status = False
-        db.session.commit()
-        return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
+# class StockAPI(Resource):
+#     def get(self,id):
+#         existing_customer = Customer.query.get_or_404(id)
+#         return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
+#     def put(self, id):
+#         existing_customer = Customer.query.get_or_404(id)
+#         body = request.get_json()
+#         data = customer_schema.load(body,session = db.session)     
+#         existing_customer.name = data.name
+#         existing_customer.lastName = data.lastName
+#         existing_customer.phoneNumber = data.phoneNumber
+#         existing_customer.address = data.address
+#         existing_customer.email = data.email
+#         existing_customer.status = data.status
+#         existing_customer.DNI = data.DNI
+#         db.session.commit()
+#         return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
+#     def delete(self,id):
+#         existing_customer = Customer.query.get_or_404(id)
+#         existing_customer.status = False
+#         db.session.commit()
+#         return Response(customer_schema.dumps(existing_customer), mimetype="application/json", status=200)
