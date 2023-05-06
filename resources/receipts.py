@@ -33,17 +33,29 @@ class ReceiptsAPI(Resource):
         )
         for detail in body["details"]:
             # ver si hay stock del producto
-            stock_product = Stock.query.filter(Stock.depot_id==depot_selected.id).all()
-            print("holaa",stock_product)
-            new_detail = ReceiptDetail(
-                unitPrice=detail["unitPrice"],
-                quantity=detail["quantity"],
-                subTotal=detail["subTotal"],
-                product_id=detail["product_id"],
-            )
-            new_receipt.details.append(new_detail)
-        # db.session.add(new_receipt)
-        # db.session.commit()
+            stock_product = Stock.query.filter(
+                and_(
+                    Stock.depot_id == depot_selected.id,
+                    Stock.product_id == detail["product_id"],
+                )
+            ).one()
+            if detail["quantity"] < stock_product.quantity:
+                new_detail = ReceiptDetail(
+                    unitPrice=detail["unitPrice"],
+                    quantity=detail["quantity"],
+                    subTotal=detail["subTotal"],
+                    product_id=detail["product_id"],
+                )
+                new_receipt.details.append(new_detail)
+                stock_product.quantity -= new_detail.quantity
+            else:
+                return Response(
+                    f"ERROR: there is no stock for product  {detail['product_id']}",
+                    mimetype="application/json",
+                    status=200,
+                )
+        db.session.add(new_receipt)
+        db.session.commit()
         return Response(
             "Receipt Register successfully", mimetype="application/json", status=200
         )
