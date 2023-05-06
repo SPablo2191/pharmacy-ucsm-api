@@ -16,4 +16,4 @@ def create_db(app):
 
 def drop_db(app):
     with app.app_context():
-        db.create_all()
+        db.drop_all()
