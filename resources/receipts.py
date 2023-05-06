@@ -3,6 +3,7 @@ from flask_restful import Resource
 from functions.receipt_code import generate_invoice_code
 from database.models.receipt import Receipt, receipt_schema, receipts_schema
 from database.models.receiptDetail import ReceiptDetail, receiptDetail_schema
+from database.models.depot import Depot
 from database.db import db
 from sqlalchemy import and_, or_
 import json
@@ -18,6 +19,7 @@ class ReceiptsAPI(Resource):
     def post(self):
         customer_id = request.args.get("customer_id")
         branch_id = request.args.get("branch_id")
+        depot_selected = Depot.query.filter(Depot.branch_id == branch_id).single()
         body = request.get_json()
         # receipt_dict = receipt_schema.load(body)
         # instancio una nueva facuta
@@ -36,8 +38,8 @@ class ReceiptsAPI(Resource):
                 product_id=detail["product_id"],
             )
             new_receipt.details.append(new_detail)
-        db.session.add(new_receipt)
-        db.session.commit()
+        # db.session.add(new_receipt)
+        # db.session.commit()
         return Response(
             "Receipt Register successfully", mimetype="application/json", status=200
         )
