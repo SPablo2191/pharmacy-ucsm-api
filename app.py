@@ -30,6 +30,11 @@ def index():
             "/product/<int:id>",
             "/branchs",
             "/branch/<int:id>",
+            "/branch/<int:id>/depots",
+            "/receipts",
+            "/receipt/<int:id>",
+            "/stocks",
+            "/stock"
         ],
     }
 
