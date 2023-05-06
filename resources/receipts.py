@@ -51,22 +51,48 @@ class ReceiptAPI(Resource):
         ).all()
         existing_receipt.details = details
         receipt_selected = json.loads(receipt_schema.dumps(existing_receipt))
-        print(receipt_selected)
         aux = []
         for detail in details:
             aux_detail = {
                 "id": detail.id,
                 "quantity": detail.quantity,
                 "unitPrice": detail.unitPrice,
-                "subTotal" : detail.subTotal,
-                "product_id": detail.product_id
+                "subTotal": detail.subTotal,
+                "product_id": detail.product_id,
             }
 
             aux.append(aux_detail)
         receipt_selected["details"] = aux
         return receipt_selected
-    def delete(self,id):
+
+    def delete(self, id):
         existing_receipt = Receipt.query.get_or_404(id)
         existing_receipt.status = False
         db.session.commit()
-        return Response(receipt_schema.dumps(existing_receipt), mimetype="application/json", status=200)
+        return Response(
+            receipt_schema.dumps(existing_receipt),
+            mimetype="application/json",
+            status=200,
+        )
+
+    def put(self, id):
+        existing_receipt = Receipt.query.get_or_404(id)
+        details = ReceiptDetail.query.filter(
+            ReceiptDetail.receipt_id == existing_receipt.id
+        ).all()
+        body = request.get_json()
+        existing_receipt.number = body["number"]
+        existing_receipt.total = body["total"]
+        existing_receipt.registerDate = body["registerDate"]
+        existing_receipt.status = body["status"]
+        existing_receipt.customer_id = body["customer_id"]
+        for i in range(len(details)):
+            details[i].quantity = body["details"][i]["quantity"]
+            details[i].unitPrice = body["details"][i]["unitPrice"]
+            details[i].subTotal = body["details"][i]["subTotal"]
+        db.session.commit()
+        return Response(
+            receipt_schema.dumps(existing_receipt),
+            mimetype="application/json",
+            status=200,
+        )
