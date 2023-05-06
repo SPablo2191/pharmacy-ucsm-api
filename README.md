@@ -29,6 +29,7 @@ pip install -r requirements.txt
 ```
 
 para obtener los paquetes empleados en la API.
+
 3) crear un archivo .env dentro del repositorio que debe contener el siguiente patron:
 ```docker
 DB_USER=[NOMBRE DE USUARIO]
