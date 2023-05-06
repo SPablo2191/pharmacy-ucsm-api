@@ -41,6 +41,7 @@ class StockAPI(Resource):
             data = stock_schema.load(body,session = db.session) 
             existing_stock[0].quantity = data.quantity
             existing_stock[0].status = data.status
+            existing_stock[0].depot_id = data.depot_id
             db.session.commit()  
             return Response(stocks_schema.dumps(existing_stock), mimetype="application/json", status=200)
         else:

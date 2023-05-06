@@ -23,6 +23,8 @@ class StockSchema(ma.SQLAlchemySchema):
             "id",
             "quantity",
             "status",
+            "depot_id",
+            "product_id",
             "registerDate",
         )
 

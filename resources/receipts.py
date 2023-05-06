@@ -4,6 +4,7 @@ from functions.receipt_code import generate_invoice_code
 from database.models.receipt import Receipt, receipt_schema, receipts_schema
 from database.models.receiptDetail import ReceiptDetail, receiptDetail_schema
 from database.models.depot import Depot
+from database.models.stock import Stock
 from database.db import db
 from sqlalchemy import and_, or_
 import json
@@ -19,8 +20,9 @@ class ReceiptsAPI(Resource):
     def post(self):
         customer_id = request.args.get("customer_id")
         branch_id = request.args.get("branch_id")
-        depot_selected = Depot.query.filter(Depot.branch_id == branch_id).single()
+        depot_selected = Depot.query.filter(Depot.branch_id == branch_id).one()
         body = request.get_json()
+        print(depot_selected)
         # receipt_dict = receipt_schema.load(body)
         # instancio una nueva facuta
         new_receipt = Receipt(
@@ -30,7 +32,9 @@ class ReceiptsAPI(Resource):
             branch_id=branch_id,
         )
         for detail in body["details"]:
-            detail_ = receiptDetail_schema.load(detail)
+            # ver si hay stock del producto
+            stock_product = Stock.query.filter(Stock.depot_id==depot_selected.id).all()
+            print("holaa",stock_product)
             new_detail = ReceiptDetail(
                 unitPrice=detail["unitPrice"],
                 quantity=detail["quantity"],
