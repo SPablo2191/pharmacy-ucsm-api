@@ -22,13 +22,12 @@ y para apagarlo:
 deactivate
 ```
 
-2) despues correr el comando:
+2) despues correr el siguiente comando para obtener los paquetes empleados en la API:
 
 ```python
 pip install -r requirements.txt
 ```
 
-para obtener los paquetes empleados en la API.
 
 3) crear un archivo .env dentro del repositorio que debe contener el siguiente patron:
 ```docker
