@@ -12,7 +12,7 @@ import json
 
 class ReceiptsAPI(Resource):
     def get(self):
-        receipts = Receipt.query.all()
+        receipts = Receipt.query.filter(Receipt.status==True).all()
         return Response(
             receipts_schema.dumps(receipts), mimetype="application/json", status=200
         )
