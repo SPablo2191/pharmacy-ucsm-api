@@ -23,7 +23,6 @@ class ReceiptsAPI(Resource):
         depot_selected = Depot.query.filter(Depot.branch_id == branch_id).one()
         body = request.get_json()
         print(depot_selected)
-        # receipt_dict = receipt_schema.load(body)
         # instancio una nueva facuta
         new_receipt = Receipt(
             number=generate_invoice_code(),
