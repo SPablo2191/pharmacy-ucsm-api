@@ -5,7 +5,7 @@ from database.db import db
 
 class ProductsAPI(Resource):
     def get(self):
-        products = Product.query.all()
+        products = Product.query.filter(Product.status==True).all()
         return Response(products_schema.dumps(products), mimetype="application/json", status=200)
     def post(self):
         body = request.get_json()

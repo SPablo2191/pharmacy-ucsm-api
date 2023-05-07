@@ -6,7 +6,7 @@ from database.db import db
 
 class BranchsAPI(Resource):
     def get(self):
-        branchs = Branch.query.all()
+        branchs = Branch.query.filter(Branch.status==True).all()
         return Response(
             branchs_schema.dumps(branchs), mimetype="application/json", status=200
         )

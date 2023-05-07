@@ -5,7 +5,7 @@ from database.db import db
 
 class CustomersAPI(Resource):
     def get(self):
-        customers = Customer.query.all()
+        customers = Customer.query.filter(Customer.status==True).all()
         return Response(customers_schema.dumps(customers), mimetype="application/json", status=200)
     def post(self):
         body = request.get_json()

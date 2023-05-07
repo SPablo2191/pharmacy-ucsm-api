@@ -51,13 +51,11 @@ class ReceiptsAPI(Resource):
                 return Response(
                     f"ERROR: there is no stock for product  {detail['product_id']}",
                     mimetype="application/json",
-                    status=200,
+                    status=404,
                 )
         db.session.add(new_receipt)
         db.session.commit()
-        return Response(
-            "Receipt Register successfully", mimetype="application/json", status=200
-        )
+        return "Receipt Register successfully",200
 
 
 class ReceiptAPI(Resource):

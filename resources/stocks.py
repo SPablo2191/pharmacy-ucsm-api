@@ -7,7 +7,7 @@ from sqlalchemy import and_,or_
 class StocksAPI(Resource):
     def get(self):
         product_id = request.args.get('product_id')
-        stocks =  Stock.query.filter_by(product_id=product_id).all()
+        stocks =  Stock.query.filter(and_(product_id==product_id,Stock.status==True)).all()
         return Response(stocks_schema.dumps(stocks), mimetype="application/json", status=200)
     def post(self):
         product_id = request.args.get('product_id')
