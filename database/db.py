@@ -11,13 +11,14 @@ def initialize_db(app):
 
 def add_engine(app):
     with app.app_context():
-        app.config["SQLALCHEMY_POOL_SIZE"] = 10
+        app.config["SQLALCHEMY_POOL_SIZE"] = 5
         app.config["SQLALCHEMY_MAX_OVERFLOW"] = 5
         engine = db.create_engine(
             app.config["SQLALCHEMY_DATABASE_URI"],
             poolclass=QueuePool,
             pool_size=app.config["SQLALCHEMY_POOL_SIZE"],
             max_overflow=app.config["SQLALCHEMY_MAX_OVERFLOW"],
+            pool_timeout=60
         )
         db.session.configure(bind=engine)
 
